@@ -1,7 +1,10 @@
 {
   "name": "atlas.damonzucconi.com",
   "scripts": {
-    "build": "parcel build src/index.html",
+    "clean": "rm -rf ./dist",
+    "copy": "cp -r ./public/* ./dist",
+    "compile": "parcel build src/index.html",
+    "build": "yarn clean && yarn compile && yarn copy",
     "start": "parcel src/index.html --open"
   },
   "dependencies": {
