@@ -1,0 +1,110 @@
+$unit: 1rem
+$rootFontSize: 16px
+$mobileBreakpoint: 36rem
+
+*,
+*:before,
+*:after
+  box-sizing: border-box
+
+html
+  font-size: $rootFontSize
+
+body
+  margin: 0
+  text-align: center
+
+body,
+h1
+  font-size: $unit
+
+a
+  text-decoration: none
+  color: blue
+  text-decoration: underline
+  &:hover
+    text-decoration: none
+
+img
+  display: inline-block
+  vertical-align: bottom
+  background-color: #eee
+
+.App
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+
+.Loading
+  display: flex
+  align-items: center
+  justify-content: center
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+
+  &::after
+    content: 'loading'
+
+.Nav
+  display: flex
+
+  > a,
+  > span
+    flex: 1
+    padding: 1rem
+
+  > a
+    color: black
+    text-decoration: none
+
+    &:hover
+      background-color: black
+      color: white
+
+  > span
+    color: gray
+
+.Collection
+  flex: 1
+  display: flex
+  flex-direction: column
+
+  &__contents
+    flex: 1
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-around
+    align-items: center
+    padding: ($unit * 2) 0
+
+  &__content
+    //
+
+  &__image
+    margin: $unit
+    background-color: #eee
+
+    // TODO
+    &--pending
+      opacity: 0
+
+    &--loaded
+      opacity: 1
+      transition: opacity 0.25s
+
+  &__text
+    margin: $unit * 2
+
+.Content
+  flex: 1
+  display: flex
+  flex-direction: column
+
+  &__content
+    flex: 1
+    display: flex
+    align-items: center
+    justify-content: center

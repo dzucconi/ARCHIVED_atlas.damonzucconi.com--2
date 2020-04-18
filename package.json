@@ -1,0 +1,18 @@
+{
+  "name": "atlas.damonzucconi.com",
+  "scripts": {
+    "build": "parcel build src/index.html",
+    "start": "parcel src/index.html --open"
+  },
+  "dependencies": {
+    "@types/page": "^1.8.0",
+    "page": "^1.11.5",
+    "qs": "^6.9.3"
+  },
+  "devDependencies": {
+    "@types/qs": "^6.9.1",
+    "parcel": "^1.12.4",
+    "sass": "^1.26.3",
+    "typescript": "^3.8.3"
+  }
+}
