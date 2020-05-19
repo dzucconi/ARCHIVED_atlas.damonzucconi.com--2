@@ -13,7 +13,7 @@
     "qs": "6.9.4"
   },
   "devDependencies": {
-    "@types/qs": "6.9.2",
+    "@types/qs": "6.9.3",
     "parcel": "1.12.4",
     "sass": "1.26.5",
     "typescript": "3.9.2"
