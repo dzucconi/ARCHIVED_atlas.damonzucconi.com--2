@@ -15,7 +15,7 @@
   "devDependencies": {
     "@types/qs": "6.9.3",
     "parcel": "1.12.4",
-    "sass": "1.26.7",
+    "sass": "1.26.8",
     "typescript": "3.9.5"
   }
 }
