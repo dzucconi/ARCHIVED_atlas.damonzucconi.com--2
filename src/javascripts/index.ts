@@ -21,44 +21,36 @@ const COLLECTION_QUERY = `
             id
             entity {
               kind: __typename
-              ...CollectionTextFragment
-              ...CollectionLinkFragment
-              ...CollectionImageFragment
-              ...CollectionCollectionFragment
+              ... on Text {
+                id
+                name
+                body
+              }
+              ... on Link {
+                id
+                name
+                url
+              }
+              ... on Collection {
+                id
+                slug
+                name
+              }
+              ... on Image {
+                id
+                name
+                thumb: resized(width: 200, height: 200) {
+                  width
+                  height
+                  urls {
+                    _1x
+                    _2x
+                  }
+                }
+              }
             }
           }
         }
-      }
-    }
-  }
-
-  fragment CollectionTextFragment on Text {
-    id
-    name
-    body
-  }
-
-  fragment CollectionLinkFragment on Link {
-    id
-    name
-    url
-  }
-
-  fragment CollectionCollectionFragment on Collection {
-    id
-    slug
-    name
-  }
-
-  fragment CollectionImageFragment on Image {
-    id
-    name
-    thumb: resized(width: 200, height: 200) {
-      width
-      height
-      urls {
-        _1x
-        _2x
       }
     }
   }
@@ -237,44 +229,39 @@ const COLLECTION_CONTENT_QUERY = `
             }
             entity {
               kind: __typename
-              ...CollectionContentTextFragment
-              ...CollectionContentLinkFragment
-              ...CollectionContentImageFragment
-              ...CollectionContentCollectionFragment
+              ... on Text {
+                id
+                name
+                body
+              }
+              ... on Link {
+                id
+                name
+                url
+              }
+              ... on Collection {
+                id
+                slug
+                name
+              }
+              ... on Image {
+                id
+                name
+                originalUrl: url
+                width
+                height
+                thumb: resized(width: 900, height: 900, quality: 85) {
+                  width
+                  height
+                  urls {
+                    _1x
+                    _2x
+                  }
+                }
+              }
             }
           }
         }
-      }
-    }
-  }
-
-  fragment CollectionContentTextFragment on Text {
-    id
-    name
-    body
-  }
-
-  fragment CollectionContentLinkFragment on Link {
-    id
-    name
-    url
-  }
-
-  fragment CollectionContentCollectionFragment on Collection {
-    id
-    slug
-    name
-  }
-
-  fragment CollectionContentImageFragment on Image {
-    id
-    name
-    thumb: resized(width: 900, height: 900) {
-      width
-      height
-      urls {
-        _1x
-        _2x
       }
     }
   }
@@ -334,13 +321,19 @@ const show = ({ collectionId, id }: { collectionId: string; id: number }) => {
             switch (entity.kind) {
               case "Image":
                 return `
-                  <img
-                    class="Content__image"
-                    src="${entity.thumb.urls._1x}"
-                    srcset="${entity.thumb.urls._1x} 1x, ${entity.thumb.urls._2x} 2x"
-                    width="${entity.thumb.width}"
-                    height="${entity.thumb.height}"
-                  />
+                  <a href="${entity.originalUrl}" target="_blank">
+                    <img
+                      class="Content__image"
+                      src="${entity.thumb.urls._1x}"
+                      srcset="${entity.thumb.urls._1x} 1x, ${entity.thumb.urls._2x} 2x"
+                      width="${entity.thumb.width}"
+                      height="${entity.thumb.height}"
+                    />
+                  </a>
+
+                  <a class="Content__download" href="${entity.originalUrl}" target="_blank">
+                    ${entity.name} (${entity.width} &times; ${entity.height})
+                  </a>
                 `;
               case "Text":
                 return `<div class="Content__text">${entity.body}</div>`;
