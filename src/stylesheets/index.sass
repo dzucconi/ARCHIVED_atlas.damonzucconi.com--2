@@ -73,12 +73,17 @@ img
   flex-direction: column
 
   &__contents
+    display: grid
+    grid-template-columns: repeat(6, 1fr)
     flex: 1
-    display: flex
-    flex-wrap: wrap
-    justify-content: space-around
     align-items: center
     padding: ($unit * 2) 0
+
+    @media screen and (max-width: 1400px)
+      grid-template-columns: repeat(3, 1fr)
+
+    @media screen and (max-width: 800px)
+      grid-template-columns: repeat(2, 1fr)
 
   &__content
     //
