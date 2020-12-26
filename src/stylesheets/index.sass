@@ -73,6 +73,8 @@ img
   flex: 1
   align-items: center
   padding: ($unit * 2) 0
+  column-gap: $unit
+  row-gap: $unit
 
   @media screen and (max-width: 1400px)
     grid-template-columns: repeat(3, 1fr)
@@ -96,7 +98,6 @@ img
     //
 
   &__image
-    margin: ($unit / 2)
     background-color: #eee
 
     // TODO
