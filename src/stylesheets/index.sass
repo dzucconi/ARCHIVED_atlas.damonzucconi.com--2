@@ -67,26 +67,30 @@ img
   > span
     color: gray
 
-.Collection
+.Grid
+  display: grid
+  grid-template-columns: repeat(6, 1fr)
   flex: 1
-  display: flex
-  flex-direction: column
+  align-items: center
+  padding: ($unit * 2) 0
 
-  &__contents
-    display: grid
-    grid-template-columns: repeat(6, 1fr)
-    flex: 1
-    align-items: center
-    padding: ($unit * 2) 0
-
-    @media screen and (max-width: 1400px)
-      grid-template-columns: repeat(3, 1fr)
+  @media screen and (max-width: 1400px)
+    grid-template-columns: repeat(3, 1fr)
 
     @media screen and (max-width: 800px)
       grid-template-columns: repeat(2, 1fr)
 
     @media screen and (max-width: 500px)
       grid-template-columns: repeat(1, 1fr)
+
+.Collection
+  flex: 1
+  display: flex
+  flex-direction: column
+
+  &__contents
+    display: flex
+    flex: 1
 
   &__content
     //

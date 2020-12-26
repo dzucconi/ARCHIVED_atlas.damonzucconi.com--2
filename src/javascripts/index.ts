@@ -169,36 +169,38 @@ const index = ({
         })}
 
         <div class="Collection__contents">
-          ${contents
-            .map(({ id, entity }) => {
-              return `
-                <a class="Collection__content" href="/${
-                  collection.slug
-                }/x/${id}">
-                  ${(() => {
-                    switch (entity.kind) {
-                      case "Image":
-                        return `
-                        <img
-                          class="Collection__image"
-                          src="${entity.thumb.urls._1x}"
-                          srcset="${entity.thumb.urls._1x} 1x, ${entity.thumb.urls._2x} 2x"
-                          width="${entity.thumb.width}"
-                          height="${entity.thumb.height}"
-                        />
-                      `;
-                      case "Text":
-                        return `<div class="Collection__text">${entity.body}</div>`;
-                      case "Link":
-                        return `<div class="Collection__link">${entity.name}</div>`;
-                      case "Collection":
-                        return `<div class="Collection__collection">${entity.name}</div>`;
-                    }
-                  })()}
-                </a>
-              `;
-            })
-            .join("")}
+          <div class="Grid">
+            ${contents
+              .map(({ id, entity }) => {
+                return `
+                  <a class="Collection__content" href="/${
+                    collection.slug
+                  }/x/${id}">
+                    ${(() => {
+                      switch (entity.kind) {
+                        case "Image":
+                          return `
+                          <img
+                            class="Collection__image"
+                            src="${entity.thumb.urls._1x}"
+                            srcset="${entity.thumb.urls._1x} 1x, ${entity.thumb.urls._2x} 2x"
+                            width="${entity.thumb.width}"
+                            height="${entity.thumb.height}"
+                          />
+                        `;
+                        case "Text":
+                          return `<div class="Collection__text">${entity.body}</div>`;
+                        case "Link":
+                          return `<div class="Collection__link">${entity.name}</div>`;
+                        case "Collection":
+                          return `<div class="Collection__collection">${entity.name}</div>`;
+                      }
+                    })()}
+                  </a>
+                `;
+              })
+              .join("")}
+            </div>
         </div>
 
         ${pagination({
