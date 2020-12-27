@@ -60,6 +60,7 @@ const SLIDES_QUERY = `
 const CONFIG = {
   per: 25,
   speed: 5000,
+  indicatorLimit: 300,
 };
 
 const STATE = {
@@ -80,7 +81,7 @@ const render = ({
 }) => {
   DOM.root.innerHTML = `
     ${
-      collection.counts.contents < 100
+      collection.counts.contents < CONFIG.indicatorLimit
         ? `<div class="Slides">
             ${[...new Array(collection.counts.contents)]
               .map((_, i) => {
@@ -96,7 +97,7 @@ const render = ({
 
     <div class="Slide">
       <div class="Slide__content" style="background-image: url('${
-        entity.placeholder.urls.src
+        entity.__typename === "Image" ? entity.placeholder.urls.src : ""
       }')">
       ${(() => {
         switch (entity.kind) {
@@ -180,17 +181,24 @@ export const slides = async ({ id }: { id: string }) => {
 
     render({ collection, entity, index });
 
-    const image = DOM.root.querySelector("img");
     const indicator = DOM.root.querySelector(".Slides__indicator--active");
 
     const start = () => {
-      if (indicator)
+      if (indicator) {
         indicator.innerHTML = `<div class="Slides__progress"></div>`;
+      }
+
       setTimeout(step, CONFIG.speed);
     };
 
-    image.onload = start;
-    image.onerror = start;
+    const image = DOM.root.querySelector("img");
+
+    if (image) {
+      image.onload = start;
+      image.onerror = start;
+    } else {
+      start();
+    }
   };
 
   step();
