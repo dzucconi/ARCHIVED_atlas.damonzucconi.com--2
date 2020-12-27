@@ -70,28 +70,29 @@ const STATE = {
 };
 
 const render = ({
-  id,
   collection,
   entity,
   index,
 }: {
-  id: string;
   collection: any;
   entity: any;
   index: number;
 }) => {
   DOM.root.innerHTML = `
-    <div class="Slides">
-      ${[...new Array(collection.counts.contents)]
-        .map((_, i) => {
-          return `<div class="Slides__indicator ${
-            i < index && `Slides__indicator--past`
-          } ${i === index && `Slides__indicator--active`}">
-            <div class="Slides__progress"></div>
-          </div>`;
-        })
-        .join("")}
-    </div>
+    ${
+      collection.counts.contents < 100
+        ? `<div class="Slides">
+            ${[...new Array(collection.counts.contents)]
+              .map((_, i) => {
+                return `<div class="Slides__indicator ${
+                  i < index && `Slides__indicator--past`
+                } ${i === index && `Slides__indicator--active`}"></div>`;
+              })
+              .join("")}
+          </div>
+        `
+        : ""
+    }
 
     <div class="Slide">
       <div class="Slide__content" style="background-image: url('${
@@ -173,10 +174,22 @@ export const slides = async ({ id }: { id: string }) => {
 
   const step = async () => {
     STATE.cursor++;
+
     const index = mapCursorToMax(STATE.cursor, counts.contents);
     const { entity } = await getContent(index);
-    render({ id, collection, entity, index });
-    setTimeout(step, CONFIG.speed);
+
+    render({ collection, entity, index });
+
+    const image = DOM.root.querySelector("img");
+    const indicator = DOM.root.querySelector(".Slides__indicator--active");
+
+    const start = () => {
+      indicator.innerHTML = `<div class="Slides__progress"></div>`;
+      setTimeout(step, CONFIG.speed);
+    };
+
+    image.onload = start;
+    image.onerror = start;
   };
 
   step();
