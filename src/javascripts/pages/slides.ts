@@ -184,7 +184,8 @@ export const slides = async ({ id }: { id: string }) => {
     const indicator = DOM.root.querySelector(".Slides__indicator--active");
 
     const start = () => {
-      indicator.innerHTML = `<div class="Slides__progress"></div>`;
+      if (indicator)
+        indicator.innerHTML = `<div class="Slides__progress"></div>`;
       setTimeout(step, CONFIG.speed);
     };
 
