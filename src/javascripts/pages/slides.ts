@@ -35,6 +35,11 @@ const SLIDES_QUERY = `
               ... on Image {
                 id
                 name
+                placeholder: resized(width: 50, height: 50, blur: 10) {
+                  urls {
+                    src: _1x
+                  }
+                }
                 thumb: resized(width: 1400, height: 1400) {
                   width
                   height
@@ -89,7 +94,9 @@ const render = ({
     </div>
 
     <div class="Slide">
-      <a class="Slide__content" href="/${collection.slug}/x/${id}">
+      <div class="Slide__content" style="background-image: url('${
+        entity.placeholder.urls.src
+      }')">
       ${(() => {
         switch (entity.kind) {
           case "Image":
@@ -110,7 +117,7 @@ const render = ({
             return `<div class="Slide__collection">${entity.name}</div>`;
         }
       })()}
-      </a>
+      </div>
     </div>
   `;
 };
