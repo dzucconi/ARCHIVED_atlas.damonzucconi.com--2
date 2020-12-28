@@ -97,7 +97,7 @@ const render = ({
 
     <div class="Slide">
       <div class="Slide__content" style="background-image: url('${
-        entity.__typename === "Image" ? entity.placeholder.urls.src : ""
+        entity.kind === "Image" ? entity.placeholder.urls.src : ""
       }')">
       ${(() => {
         switch (entity.kind) {
