@@ -8,7 +8,7 @@
     "start": "parcel src/index.html --open"
   },
   "dependencies": {
-    "@types/page": "1.11.2",
+    "@types/page": "1.11.3",
     "map-cursor-to-max": "1.0.0",
     "page": "1.11.6",
     "qs": "6.10.1"
