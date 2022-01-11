@@ -11,7 +11,7 @@
     "@types/page": "1.11.5",
     "map-cursor-to-max": "1.0.0",
     "page": "1.11.6",
-    "qs": "6.10.2"
+    "qs": "6.10.3"
   },
   "devDependencies": {
     "@types/qs": "6.9.7",
